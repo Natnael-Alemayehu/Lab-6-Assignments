@@ -175,6 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tasks.clear();
         displayTaskList();
         console.log("Tasks Cleared !!!");
-    }w
+    }
 
 });

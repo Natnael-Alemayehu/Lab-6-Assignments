@@ -1,13 +1,10 @@
-//UI variables 
-const form = document.querySelector('#task-form'); //The form at the top
-const taskInput = document.querySelector('#task'); //the task input text field
+const form = document.querySelector('#task-form'); 
+const taskInput = document.querySelector('#task'); 
 
-//read from q string 
 const urlParams = new URLSearchParams(window.location.search);
 const id = Number(urlParams.get('id'));
 var taskDate;
 
-//DB
 var DB;
 
 // Add Event Listener [on Load]
@@ -82,16 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
             date : taskDate,
             id: id,
         }
-
         objectStore.put(getTask); 
-
-
         transaction.oncomplete = () => {
                     console.log("Yes")
-                }
-      
+                }      
         history.back();
     }
-
-
 });
