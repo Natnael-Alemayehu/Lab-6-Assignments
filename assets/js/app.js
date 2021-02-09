@@ -60,47 +60,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return;
         }
-
         // create a new object with the form info
         let newTask = {
             taskname: taskInput.value,
             date: new Date().getTime(),
         }
-
         // Insert the object into the database 
         let transaction = DB.transaction(['tasks'], 'readwrite');
         let objectStore = transaction.objectStore('tasks');
-
         let request = objectStore.add(newTask);
-
         // on success
         request.onsuccess = () => {
             form.reset();
         }
         transaction.oncomplete = () => {
             console.log('New appointment added');
-
             displayTaskList();
         }
         transaction.onerror = () => {
             console.log('There was an error, try again!');
         }
-
     }
-
     sortOptions.addEventListener('change', displayTaskList);
-
     function displayTaskList() {
         // clear the previous task list
         while (taskList.firstChild) {
             taskList.removeChild(taskList.firstChild);
         }
-
         // create the object store
         let objectStore = DB.transaction('tasks').objectStore('tasks');
-
         let sortingOrder;
-
         if (sortOptions.value == "0") {
             sortingOrder = "next"
         } else {
@@ -110,9 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         index.openCursor(null, sortingOrder).onsuccess = function(e) {
             // assign the current cursor
             let cursor = e.target.result;
-
             if (cursor) {
-                
                 // Create an li element when the user adds a task 
                 const li = document.createElement('li');
                 //add Attribute for delete 
@@ -139,12 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
     // Remove task event [event delegation]
     taskList.addEventListener('click', removeTask);
-
     function removeTask(e) {
-
         if (e.target.parentElement.classList.contains('delete-item')) {
             if (confirm('Are You Sure about that ?')) {
                 // get the task id
@@ -153,20 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 let transaction = DB.transaction(['tasks'], 'readwrite');
                 let objectStore = transaction.objectStore('tasks');
                 objectStore.delete(taskID);
-
                 transaction.oncomplete = () => {
                     e.target.parentElement.parentElement.remove();
                 }
-
             }
-
         }
-
     }
-
     //clear button event listener   
     clearBtn.addEventListener('click', clearAllTasks);
-
     //clear tasks 
     function clearAllTasks() {
         let transaction = DB.transaction("tasks", "readwrite");
@@ -176,5 +154,4 @@ document.addEventListener('DOMContentLoaded', () => {
         displayTaskList();
         console.log("Tasks Cleared !!!");
     }
-
 });

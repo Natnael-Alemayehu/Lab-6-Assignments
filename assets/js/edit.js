@@ -4,9 +4,7 @@ const taskInput = document.querySelector('#task');
 const urlParams = new URLSearchParams(window.location.search);
 const id = Number(urlParams.get('id'));
 var taskDate;
-
 var DB;
-
 // Add Event Listener [on Load]
 document.addEventListener('DOMContentLoaded', () => {
     // create the database
@@ -31,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let transaction = DB.transaction(['tasks'], 'readwrite');
         let objectStore = transaction.objectStore('tasks');
         let request = objectStore.get(id);
-
         request.onsuccess = function(event) {
             if (request.result) {
                 taskInput.value = request.result.taskname;
@@ -71,8 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
         history.back();
     }
 });
-
-
         /* 
         Instruction set to handle Update
 
