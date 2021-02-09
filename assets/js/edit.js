@@ -26,8 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // display the Task 
         displayTask();
     }
-
-
     function displayTask() {
 
         let transaction = DB.transaction(['tasks'], 'readwrite');
@@ -44,17 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('No data record');
             }
         };
-
         request.onerror = function(event) {
             console.log('Transaction failed');
         };
-
     }
-
     form.addEventListener('submit', updateTask);
-
     function updateTask(e) {
-
         e.preventDefault();
         
         // Check empty entry
@@ -63,14 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return;
         }
-
-        /* 
-        Instruction set to handle Update
-
-        1. Declare the transaction and object store objects 
-        2. Use the id on put method of index db
-        
-        */
         let transaction = DB.transaction(['tasks'], 'readwrite');
         let objectStore = transaction.objectStore('tasks');
 
@@ -86,3 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
         history.back();
     }
 });
+
+
+        /* 
+        Instruction set to handle Update
+
+        1. Declare the transaction and object store objects 
+        2. Use the id on put method of index db
+        
+        */
